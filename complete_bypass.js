@@ -23,9 +23,9 @@
  * @linkedin https://www.linkedin.com/in/mohamedelsheiikh/
  */
 
-console.log("🔧 Starting Complete Smowl Extension Bypass...");
-console.log("⚠️  WARNING: This script disables ALL security monitoring!");
-console.log("📍 Context check: " + (chrome.scripting ? "✅ Background script context" : "❌ Service worker context"));
+// console.log("🔧 Starting Complete Smowl Extension Bypass...");
+// console.log("⚠️  WARNING: This script disables ALL security monitoring!");
+// console.log("📍 Context check: " + (chrome.scripting ? "✅ Background script context" : "❌ Service worker context"));
 
 // Store original functions for restoration
 const originalFunctions = new Map();
@@ -45,7 +45,7 @@ const bypassStats = {
 function storeOriginalFunction(key, original) {
     originalFunctions.set(key, original);
     bypassStats.apisPatched++;
-    console.log(`📝 Stored original function: ${key}`);
+    // console.log(`📝 Stored original function: ${key}`);
 }
 
 // ============================================================================
@@ -53,7 +53,7 @@ function storeOriginalFunction(key, original) {
 // ============================================================================
 
 function patchDisplayAPIs() {
-    console.log("📺 Patching display detection APIs...");
+    // console.log("📺 Patching display detection APIs...");
     
     // Patch 1: Override chrome.system.display.getInfo globally
     if (chrome.system && chrome.system.display) {
@@ -94,7 +94,7 @@ function patchDisplayAPIs() {
             return Promise.resolve(fakeDisplay);
         };
         
-        console.log("✅ getInfo patched successfully");
+        // console.log("✅ getInfo patched successfully");
     }
 
     // Patch 2: Override display change listeners
@@ -123,12 +123,12 @@ function patchDisplayAPIs() {
             return false;
         };
         
-        console.log("✅ Display change listeners patched successfully");
+        // console.log("✅ Display change listeners patched successfully");
     }
 }
 
 function patchWindowAPIs() {
-    console.log("🪟 Patching window management APIs...");
+    // console.log("🪟 Patching window management APIs...");
     
     // Disable fullscreen enforcement
     if (chrome.windows && chrome.windows.onBoundsChanged) {
@@ -155,7 +155,7 @@ function patchWindowAPIs() {
             return false;
         };
         
-        console.log("✅ Window bounds change listeners patched successfully");
+        // console.log("✅ Window bounds change listeners patched successfully");
     }
     
     // Block window state updates (fullscreen enforcement)
@@ -187,12 +187,12 @@ function patchWindowAPIs() {
             return originalUpdate.call(this, windowId, updateInfo, callback);
         };
         
-        console.log("✅ Window update API patched successfully");
+        // console.log("✅ Window update API patched successfully");
     }
 }
 
 function patchTabAPIs() {
-    console.log("📑 Patching tab management APIs...");
+    // console.log("📑 Patching tab management APIs...");
     
     // Disable tab creation restrictions
     if (chrome.tabs && chrome.tabs.onCreated) {
@@ -219,7 +219,7 @@ function patchTabAPIs() {
             return false;
         };
         
-        console.log("✅ Tab creation listeners patched successfully");
+        // console.log("✅ Tab creation listeners patched successfully");
     }
     
     // Disable tab update monitoring
@@ -247,7 +247,7 @@ function patchTabAPIs() {
             return false;
         };
         
-        console.log("✅ Tab update listeners patched successfully");
+        // console.log("✅ Tab update listeners patched successfully");
     }
     
     // Block tab removal API to prevent tab closing
@@ -264,7 +264,7 @@ function patchTabAPIs() {
             return;
         };
         
-        console.log("✅ Tab removal API patched successfully");
+        // console.log("✅ Tab removal API patched successfully");
     }
 }
 
@@ -273,7 +273,7 @@ function patchTabAPIs() {
 // ============================================================================
 
 function patchMessaging() {
-    console.log("📨 Patching messaging system...");
+    // console.log("📨 Patching messaging system...");
     
     if (chrome.runtime && chrome.runtime.sendMessage) {
         const originalSendMessage = chrome.runtime.sendMessage;
@@ -321,7 +321,7 @@ function patchMessaging() {
             return originalSendMessage.call(this, message, callback);
         };
         
-        console.log("✅ sendMessage patched successfully");
+        // console.log("✅ sendMessage patched successfully");
     }
     
     // Patch chrome.tabs.sendMessage to block CS_START_LOCK broadcasts
@@ -360,7 +360,7 @@ function patchMessaging() {
             return originalTabsSendMessage.call(this, tabId, message, options, callback);
         };
         
-        console.log("✅ tabs.sendMessage patched successfully");
+        // console.log("✅ tabs.sendMessage patched successfully");
     }
     
     // Patch chrome.runtime.onMessage.addListener to intercept IS_LOCKED responses
@@ -404,7 +404,7 @@ function patchMessaging() {
             return originalAddListener.call(this, wrappedCallback);
         };
         
-        console.log("✅ runtime.onMessage.addListener patched successfully");
+        // console.log("✅ runtime.onMessage.addListener patched successfully");
     }
 }
 
@@ -413,7 +413,7 @@ function patchMessaging() {
 // ============================================================================
 
 function patchNetworkRequests() {
-    console.log("🌐 Patching network requests...");
+    // console.log("🌐 Patching network requests...");
     
     // Patch fetch API
     if (typeof fetch !== 'undefined') {
@@ -450,7 +450,7 @@ function patchNetworkRequests() {
             return originalFetch.call(this, url, options);
         };
         
-        console.log("✅ fetch patched successfully");
+        // console.log("✅ fetch patched successfully");
     }
     
     // Patch XMLHttpRequest
@@ -494,7 +494,7 @@ function patchNetworkRequests() {
             return originalXHRSend.call(this, data);
         };
         
-        console.log("✅ XMLHttpRequest patched successfully");
+        // console.log("✅ XMLHttpRequest patched successfully");
     }
 }
 
@@ -503,7 +503,7 @@ function patchNetworkRequests() {
 // ============================================================================
 
 function patchStorage() {
-    console.log("💾 Patching storage operations...");
+    // console.log("💾 Patching storage operations...");
     
     if (chrome.storage && chrome.storage.local) {
         const originalStorageSet = chrome.storage.local.set;
@@ -551,7 +551,7 @@ function patchStorage() {
             });
         };
         
-        console.log("✅ chrome.storage patched successfully");
+        // console.log("✅ chrome.storage patched successfully");
     }
 }
 
@@ -560,7 +560,7 @@ function patchStorage() {
 // ============================================================================
 
 function patchScreenCapture() {
-    console.log("📹 Patching screen capture APIs...");
+    // console.log("📹 Patching screen capture APIs...");
     
     // Patch getDisplayMedia
     if (navigator.mediaDevices && navigator.mediaDevices.getDisplayMedia) {
@@ -588,7 +588,7 @@ function patchScreenCapture() {
             return canvas.captureStream(30);
         };
         
-        console.log("✅ getDisplayMedia patched successfully");
+        // console.log("✅ getDisplayMedia patched successfully");
     }
     
     // Patch getUserMedia as well
@@ -616,7 +616,7 @@ function patchScreenCapture() {
             return canvas.captureStream(30);
         };
         
-        console.log("✅ getUserMedia patched successfully");
+        // console.log("✅ getUserMedia patched successfully");
     }
 }
 
@@ -625,13 +625,13 @@ function patchScreenCapture() {
 // ============================================================================
 
 function injectKeyboardUnlocker() {
-    console.log("💉 Injecting keyboard shortcut unlocker into all tabs...");
+    // console.log("💉 Injecting keyboard shortcut unlocker into all tabs...");
     
     // Check if we're in the right context
     if (!chrome.scripting || !chrome.scripting.executeScript) {
-        console.log("⚠️ chrome.scripting not available - running in service worker context");
-        console.log("💡 This script should be run in the background script context, not service worker");
-        console.log("💡 To fix: Copy this script and run it in the background script console");
+        // console.log("⚠️ chrome.scripting not available - running in service worker context");
+        // console.log("💡 This script should be run in the background script context, not service worker");
+        // console.log("💡 To fix: Copy this script and run it in the background script console");
         return;
     }
     
@@ -654,7 +654,7 @@ function injectKeyboardUnlocker() {
                     target: { tabId: tab.id },
                     world: 'MAIN', // Inject into page context to run before content scripts
                     func: function() {
-                        console.log('🔓 Starting keyboard shortcut bypass...');
+                        // console.log('🔓 Starting keyboard shortcut bypass...');
                         
                         // Store original preventDefault to restore later
                         const originalPreventDefault = Event.prototype.preventDefault;
@@ -757,7 +757,7 @@ function injectKeyboardUnlocker() {
                                         if (node.tagName === 'SCRIPT' && 
                                             (node.src && node.src.includes('smowl')) ||
                                             (node.textContent && node.textContent.includes('lock_content_script'))) {
-                                            console.log('🚨 Detected potential Smowl script re-injection!');
+                                            // console.log('🚨 Detected potential Smowl script re-injection!');
                                             // Re-apply our protections
                                             if (node.textContent) {
                                                 node.textContent = '// Blocked by bypass script';
@@ -773,26 +773,26 @@ function injectKeyboardUnlocker() {
                             subtree: true
                         });
                         
-                        console.log('🔓 Keyboard shortcuts unlocked by bypass script!');
-                        console.log('✅ Ctrl+C, Ctrl+V, and other shortcuts should now work');
-                        console.log('✅ Smowl incident reporting blocked');
-                        console.log('✅ Continuous monitoring active');
-                        console.log('✅ Script re-injection protection enabled');
+                        // console.log('🔓 Keyboard shortcuts unlocked by bypass script!');
+                        // console.log('✅ Ctrl+C, Ctrl+V, and other shortcuts should now work');
+                        // console.log('✅ Smowl incident reporting blocked');
+                        // console.log('✅ Continuous monitoring active');
+                        // console.log('✅ Script re-injection protection enabled');
                     }
                 }, (result) => {
                     if (chrome.runtime.lastError) {
-                        console.log(`⚠️ Could not inject into tab ${tab.id}: ${chrome.runtime.lastError.message}`);
+                        // console.log(`⚠️ Could not inject into tab ${tab.id}: ${chrome.runtime.lastError.message}`);
                     }
                 });
                 
                 injectedCount++;
             } catch (error) {
-                console.log(`❌ Failed to inject into tab ${tab.id}:`, error.message);
+                // console.log(`❌ Failed to inject into tab ${tab.id}:`, error.message);
             }
         });
         
         setTimeout(() => {
-            console.log(`✅ Keyboard unlocker injected into ${injectedCount} tabs (${skippedCount} skipped)`);
+            // console.log(`✅ Keyboard unlocker injected into ${injectedCount} tabs (${skippedCount} skipped)`);
         }, 500);
     });
 }
@@ -802,7 +802,7 @@ function injectKeyboardUnlocker() {
 // ============================================================================
 
 function testAllBypasses() {
-    console.log("🧪 Testing all bypasses...");
+    // console.log("🧪 Testing all bypasses...");
     
     const tests = [];
     
@@ -811,7 +811,7 @@ function testAllBypasses() {
         chrome.system.display.getInfo((displays) => {
             const test1 = displays.length === 1;
             tests.push({ name: "Multi-screen detection", passed: test1 });
-            console.log(`📊 Multi-screen test: ${test1 ? '✅ PASSED' : '❌ FAILED'} (${displays.length} displays)`);
+            // console.log(`📊 Multi-screen test: ${test1 ? '✅ PASSED' : '❌ FAILED'} (${displays.length} displays)`);
         });
     }
     
@@ -820,7 +820,7 @@ function testAllBypasses() {
         chrome.runtime.sendMessage({ id: 'EXPEL_USER', type: 3 }, (response) => {
             const test2 = response === undefined;
             tests.push({ name: "Message blocking", passed: test2 });
-            console.log(`📊 Message blocking test: ${test2 ? '✅ PASSED' : '❌ FAILED'}`);
+            // console.log(`📊 Message blocking test: ${test2 ? '✅ PASSED' : '❌ FAILED'}`);
         });
     }
     
@@ -831,10 +831,10 @@ function testAllBypasses() {
             .then(data => {
                 const test3 = data.success === true && data.message.includes('blocked');
                 tests.push({ name: "Network blocking", passed: test3 });
-                console.log(`📊 Network blocking test: ${test3 ? '✅ PASSED' : '❌ FAILED'}`);
+                // console.log(`📊 Network blocking test: ${test3 ? '✅ PASSED' : '❌ FAILED'}`);
             })
             .catch(error => {
-                console.log(`📊 Network blocking test: ❌ FAILED (${error.message})`);
+                // console.log(`📊 Network blocking test: ❌ FAILED (${error.message})`);
                 tests.push({ name: "Network blocking", passed: false });
             });
     }
@@ -845,10 +845,10 @@ function testAllBypasses() {
             .then(stream => {
                 const test4 = stream && stream.getVideoTracks().length > 0;
                 tests.push({ name: "Screen capture", passed: test4 });
-                console.log(`📊 Screen capture test: ${test4 ? '✅ PASSED' : '❌ FAILED'}`);
+                // console.log(`📊 Screen capture test: ${test4 ? '✅ PASSED' : '❌ FAILED'}`);
             })
             .catch(error => {
-                console.log(`📊 Screen capture test: ❌ FAILED (${error.message})`);
+                // console.log(`📊 Screen capture test: ❌ FAILED (${error.message})`);
                 tests.push({ name: "Screen capture", passed: false });
             });
     }
@@ -858,13 +858,13 @@ function testAllBypasses() {
         chrome.storage.local.get(['test-key'], (result) => {
             const test5 = true; // Storage get is working
             tests.push({ name: "Storage manipulation", passed: test5 });
-            console.log(`📊 Storage manipulation test: ${test5 ? '✅ PASSED' : '❌ FAILED'}`);
+            // console.log(`📊 Storage manipulation test: ${test5 ? '✅ PASSED' : '❌ FAILED'}`);
         });
     }
     
     // Test 6: Keyboard shortcuts (inject test into active tab)
     if (!chrome.scripting || !chrome.scripting.executeScript) {
-        console.log("📊 Keyboard shortcuts test: ❌ SKIPPED (chrome.scripting not available)");
+        // console.log("📊 Keyboard shortcuts test: ❌ SKIPPED (chrome.scripting not available)");
         tests.push({ name: "Keyboard shortcuts", passed: false });
     } else {
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
@@ -920,17 +920,17 @@ function testAllBypasses() {
                 if (results && results[0] && results[0].result) {
                     const test6 = results[0].result.ctrlCWorks && results[0].result.ctrlVWorks;
                     tests.push({ name: "Keyboard shortcuts", passed: test6 });
-                    console.log(`📊 Keyboard shortcuts test: ${test6 ? '✅ PASSED' : '❌ FAILED'}`);
-                    console.log(`   - Ctrl+C: ${results[0].result.ctrlCWorks ? '✅' : '❌'}`);
-                    console.log(`   - Ctrl+V: ${results[0].result.ctrlVWorks ? '✅' : '❌'}`);
+                    // console.log(`📊 Keyboard shortcuts test: ${test6 ? '✅ PASSED' : '❌ FAILED'}`);
+                    // console.log(`   - Ctrl+C: ${results[0].result.ctrlCWorks ? '✅' : '❌'}`);
+                    // console.log(`   - Ctrl+V: ${results[0].result.ctrlVWorks ? '✅' : '❌'}`);
                 } else {
                     tests.push({ name: "Keyboard shortcuts", passed: false });
-                    console.log(`📊 Keyboard shortcuts test: ❌ FAILED (could not test)`);
+                    // console.log(`📊 Keyboard shortcuts test: ❌ FAILED (could not test)`);
                 }
             });
         } else {
             tests.push({ name: "Keyboard shortcuts", passed: false });
-            console.log(`📊 Keyboard shortcuts test: ❌ FAILED (no active tab)`);
+            // console.log(`📊 Keyboard shortcuts test: ❌ FAILED (no active tab)`);
         }
     });
     }
@@ -938,12 +938,12 @@ function testAllBypasses() {
     setTimeout(() => {
         const passedTests = tests.filter(t => t.passed).length;
         const totalTests = tests.length;
-        console.log(`\n📊 BYPASS TEST SUMMARY: ${passedTests}/${totalTests} tests passed`);
+        // console.log(`\n📊 BYPASS TEST SUMMARY: ${passedTests}/${totalTests} tests passed`);
         
         if (passedTests === totalTests) {
-            console.log("🎉 ALL BYPASSES WORKING CORRECTLY!");
+            // console.log("🎉 ALL BYPASSES WORKING CORRECTLY!");
         } else {
-            console.log("⚠️  Some bypasses may not be working properly");
+            // console.log("⚠️  Some bypasses may not be working properly");
         }
     }, 2000);
 }
@@ -953,7 +953,7 @@ function testAllBypasses() {
 // ============================================================================
 
 function restoreAllFunctions() {
-    console.log("🔄 Restoring original functions...");
+    // console.log("🔄 Restoring original functions...");
     
     originalFunctions.forEach((original, key) => {
         try {
@@ -1009,14 +1009,14 @@ function restoreAllFunctions() {
                 chrome.runtime.onMessage.addListener = original;
             }
             
-            console.log(`✅ Restored: ${key}`);
+            // console.log(`✅ Restored: ${key}`);
         } catch (error) {
-            console.error(`❌ Failed to restore: ${key}`, error);
+            // console.error(`❌ Failed to restore: ${key}`, error);
         }
     });
     
     originalFunctions.clear();
-    console.log("✅ All original functions restored");
+    // console.log("✅ All original functions restored");
 }
 
 // ============================================================================
@@ -1024,7 +1024,7 @@ function restoreAllFunctions() {
 // ============================================================================
 
 function executeCompleteBypass() {
-    console.log("🚀 Executing complete bypass...");
+    // console.log("🚀 Executing complete bypass...");
     
     // Execute all patches
     patchDisplayAPIs();
@@ -1048,19 +1048,19 @@ function executeCompleteBypass() {
     // Display statistics
     setTimeout(() => {
         const runtime = Date.now() - bypassStats.startTime;
-        console.log("\n📊 BYPASS STATISTICS:");
-        console.log(`⏱️  Runtime: ${runtime}ms`);
-        console.log(`🔧 APIs Patched: ${bypassStats.apisPatched}`);
-        console.log(`📨 Messages Blocked: ${bypassStats.messagesBlocked}`);
-        console.log(`🌐 Network Requests Blocked: ${bypassStats.networkRequestsBlocked}`);
-        console.log(`🚫 Tab Closures Blocked: ${bypassStats.tabCloseBlocked}`);
-        console.log(`🚫 Fullscreen Enforcements Blocked: ${bypassStats.fullscreenBlocked}`);
-        console.log("\n🎯 ALL SECURITY MONITORING DISABLED!");
-        console.log("🔓 Keyboard shortcuts (Ctrl+C, Ctrl+V, etc.) unlocked in all tabs!");
-        console.log("🚫 Smowl incident reporting blocked for keyboard usage!");
-        console.log("🔄 Continuous monitoring active to prevent re-registration!");
-        console.log("💡 To restore original functionality, run: restoreAllFunctions()");
-        console.log("🔍 To verify bypasses remain active, run: verifyAllBypassesActive()");
+        // console.log("\n📊 BYPASS STATISTICS:");
+        // console.log(`⏱️  Runtime: ${runtime}ms`);
+        // console.log(`🔧 APIs Patched: ${bypassStats.apisPatched}`);
+        // console.log(`📨 Messages Blocked: ${bypassStats.messagesBlocked}`);
+        // console.log(`🌐 Network Requests Blocked: ${bypassStats.networkRequestsBlocked}`);
+        // console.log(`🚫 Tab Closures Blocked: ${bypassStats.tabCloseBlocked}`);
+        // console.log(`🚫 Fullscreen Enforcements Blocked: ${bypassStats.fullscreenBlocked}`);
+        // console.log("\n🎯 ALL SECURITY MONITORING DISABLED!");
+        // console.log("🔓 Keyboard shortcuts (Ctrl+C, Ctrl+V, etc.) unlocked in all tabs!");
+        // console.log("🚫 Smowl incident reporting blocked for keyboard usage!");
+        // console.log("🔄 Continuous monitoring active to prevent re-registration!");
+        // console.log("💡 To restore original functionality, run: restoreAllFunctions()");
+        // console.log("🔍 To verify bypasses remain active, run: verifyAllBypassesActive()");
     }, 3000);
     
     // Verify bypasses remain active after 5 seconds
@@ -1077,7 +1077,7 @@ executeCompleteBypass();
 // ============================================================================
 
 function verifyAllBypassesActive() {
-    console.log("🔍 Verifying all bypasses remain active...");
+    // console.log("🔍 Verifying all bypasses remain active...");
     
     const verificationResults = {
         displayAPIs: false,
@@ -1134,7 +1134,7 @@ function verifyAllBypassesActive() {
     
     // Check keyboard bypass (inject into active tab)
     if (!chrome.scripting || !chrome.scripting.executeScript) {
-        console.log("📊 Keyboard bypass verification: ❌ SKIPPED (chrome.scripting not available)");
+        // console.log("📊 Keyboard bypass verification: ❌ SKIPPED (chrome.scripting not available)");
         verificationResults.keyboardBypass = false;
     } else {
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
@@ -1156,20 +1156,20 @@ function verifyAllBypassesActive() {
                 const activeCount = Object.values(verificationResults).filter(Boolean).length;
                 const totalCount = Object.keys(verificationResults).length;
                 
-                console.log(`\n📊 BYPASS PERSISTENCE VERIFICATION: ${activeCount}/${totalCount} active`);
-                console.log(`📺 Display APIs: ${verificationResults.displayAPIs ? '✅' : '❌'}`);
-                console.log(`🪟 Window APIs: ${verificationResults.windowAPIs ? '✅' : '❌'}`);
-                console.log(`📑 Tab APIs: ${verificationResults.tabAPIs ? '✅' : '❌'}`);
-                console.log(`📨 Messaging: ${verificationResults.messaging ? '✅' : '❌'}`);
-                console.log(`🌐 Network: ${verificationResults.networkRequests ? '✅' : '❌'}`);
-                console.log(`💾 Storage: ${verificationResults.storage ? '✅' : '❌'}`);
-                console.log(`📹 Screen Capture: ${verificationResults.screenCapture ? '✅' : '❌'}`);
-                console.log(`⌨️  Keyboard: ${verificationResults.keyboardBypass ? '✅' : '❌'}`);
+                // console.log(`\n📊 BYPASS PERSISTENCE VERIFICATION: ${activeCount}/${totalCount} active`);
+                // console.log(`📺 Display APIs: ${verificationResults.displayAPIs ? '✅' : '❌'}`);
+                // console.log(`🪟 Window APIs: ${verificationResults.windowAPIs ? '✅' : '❌'}`);
+                // console.log(`📑 Tab APIs: ${verificationResults.tabAPIs ? '✅' : '❌'}`);
+                // console.log(`📨 Messaging: ${verificationResults.messaging ? '✅' : '❌'}`);
+                // console.log(`🌐 Network: ${verificationResults.networkRequests ? '✅' : '❌'}`);
+                // console.log(`💾 Storage: ${verificationResults.storage ? '✅' : '❌'}`);
+                // console.log(`📹 Screen Capture: ${verificationResults.screenCapture ? '✅' : '❌'}`);
+                // console.log(`⌨️  Keyboard: ${verificationResults.keyboardBypass ? '✅' : '❌'}`);
                 
                 if (activeCount === totalCount) {
-                    console.log("🎉 ALL BYPASSES REMAIN ACTIVE!");
+                    // console.log("🎉 ALL BYPASSES REMAIN ACTIVE!");
                 } else {
-                    console.log("⚠️  Some bypasses may have been disabled - re-running bypass...");
+                    // console.log("⚠️  Some bypasses may have been disabled - re-running bypass...");
                     // Re-execute bypass for any disabled functions
                     executeCompleteBypass();
                 }
@@ -1185,6 +1185,6 @@ globalThis.testAllBypasses = testAllBypasses;
 globalThis.verifyAllBypassesActive = verifyAllBypassesActive;
 globalThis.bypassStats = bypassStats;
 
-console.log("✅ Complete Smowl Extension Bypass Script Loaded!");
-console.log("⚠️  WARNING: All security monitoring has been disabled!");
-console.log("📝 Available functions: restoreAllFunctions(), testAllBypasses()");
+// console.log("✅ Complete Smowl Extension Bypass Script Loaded!");
+// console.log("⚠️  WARNING: All security monitoring has been disabled!");
+// console.log("📝 Available functions: restoreAllFunctions(), testAllBypasses()");

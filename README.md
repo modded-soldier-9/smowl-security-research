@@ -54,6 +54,8 @@ This repository contains comprehensive security research on the Smowl proctoring
 - **Testing procedures** to verify bypass effectiveness
 - **Architectural analysis** of security flaws
 
+For detailed architecture information, see the [Architecture Overview](docs/architecture-overview.md).
+
 ### Research Goals
 
 1. **Identify vulnerabilities** in client-side proctoring systems
@@ -67,21 +69,25 @@ This repository contains comprehensive security research on the Smowl proctoring
 
 The complete bypass script (`scripts/complete_bypass.js`) disables **ALL** security monitoring features:
 
-| Feature | Status | Description |
-|---------|--------|-------------|
-| 📺 **Multi-Screen Detection** | ✅ Bypassed | Prevents detection of multiple displays |
-| 🪟 **Fullscreen Enforcement** | ✅ Bypassed | Blocks forced fullscreen mode |
-| 📑 **Tab Management** | ✅ Bypassed | Prevents tab closing and monitoring |
-| 📨 **Message Interception** | ✅ Bypassed | Blocks security-related messages |
-| 🌐 **Network Blocking** | ✅ Bypassed | Intercepts and blocks security endpoints |
-| 💾 **Storage Manipulation** | ✅ Bypassed | Prevents incident data storage |
-| 📹 **Screen Capture** | ✅ Bypassed | Returns fake screen/camera streams |
-| ⌨️ **Keyboard Shortcuts** | ✅ Bypassed | Unlocks Ctrl+C, Ctrl+V, etc. |
-| 🔄 **Persistence** | ✅ Active | Continuous monitoring prevents re-registration |
+| Feature | Status | Description | Documentation |
+|---------|--------|-------------|---------------|
+| 📺 **Multi-Screen Detection** | ✅ Bypassed | Prevents detection of multiple displays | [Display API Overrides](docs/modules/02-display-api-overrides.md), [Multi-Screen Analysis](docs/multi-screen-bypass-analysis.md) |
+| 🪟 **Fullscreen Enforcement** | ✅ Bypassed | Blocks forced fullscreen mode | [Window API Overrides](docs/modules/03-window-api-overrides.md) |
+| 📑 **Tab Management** | ✅ Bypassed | Prevents tab closing and monitoring | [Tab API Overrides](docs/modules/04-tab-api-overrides.md) |
+| 📨 **Message Interception** | ✅ Bypassed | Blocks security-related messages | [Message Interception](docs/modules/05-message-interception.md) |
+| 🌐 **Network Blocking** | ✅ Bypassed | Intercepts and blocks security endpoints | [Network Blocking](docs/modules/06-network-blocking.md) |
+| 💾 **Storage Manipulation** | ✅ Bypassed | Prevents incident data storage | [Storage Manipulation](docs/modules/07-storage-manipulation.md) |
+| 📹 **Screen Capture** | ✅ Bypassed | Returns fake screen/camera streams | [Screen Capture Overrides](docs/modules/08-screen-capture-overrides.md) |
+| ⌨️ **Keyboard Shortcuts** | ✅ Bypassed | Unlocks Ctrl+C, Ctrl+V, etc. | [Keyboard Shortcut Unlocker](docs/modules/09-keyboard-shortcut-unlocker.md) |
+| 🔄 **Persistence** | ✅ Active | Continuous monitoring prevents re-registration | [Execution & Verification](docs/modules/12-execution-verification.md) |
+
+For complete module documentation, see the [Documentation](#-documentation) section.
 
 ---
 
 ## 🚀 Quick Start
+
+> **📖 For detailed setup instructions, see the [Installation Guide](docs/guides/installation.md)**
 
 ### Prerequisites
 
@@ -102,6 +108,8 @@ The complete bypass script (`scripts/complete_bypass.js`) disables **ALL** secur
 3. Find the Smowl extension and click "Inspect views: service worker" or "background page"
 
 4. Open the Console tab in DevTools
+
+For detailed installation steps, see the [Installation Guide](docs/guides/installation.md).
 
 ### Basic Usage
 
@@ -170,6 +178,8 @@ Each module in `complete_bypass.js` is fully documented:
 
 ## 📖 Usage Guide
 
+> **📚 For comprehensive usage instructions, see the [Usage Guide](docs/guides/usage-guide.md)**
+
 ### Using Complete Bypass
 
 The complete bypass script disables all security monitoring. See [Usage Guide](docs/guides/usage-guide.md) for detailed instructions.
@@ -180,12 +190,20 @@ The complete bypass script disables all security monitoring. See [Usage Guide](d
 3. Press Enter to execute
 4. Verify bypass is active using built-in tests
 
+For detailed module information, see:
+- [Configuration & Storage](docs/modules/01-configuration-storage.md)
+- [Execution & Verification](docs/modules/12-execution-verification.md)
+
 ### Using Multi-Screen Bypass Only
 
 For just multi-screen detection bypass:
 1. Open Chrome DevTools on the Smowl extension background page
 2. Paste `scripts/bypass_twoscreen.js` into the console
 3. Press Enter to execute
+
+For detailed information, see:
+- [Display API Overrides](docs/modules/02-display-api-overrides.md)
+- [Multi-Screen Bypass Analysis](docs/multi-screen-bypass-analysis.md)
 
 ### Testing the Bypass
 
@@ -197,6 +215,10 @@ testAllBypasses()
 
 This will verify that all bypass modules are working correctly.
 
+For comprehensive testing procedures, see:
+- [Testing Guide](docs/guides/testing-guide.md)
+- [Testing Functions](docs/modules/10-testing-functions.md)
+
 ### Restoring Original Functionality
 
 To restore original extension behavior:
@@ -205,9 +227,13 @@ To restore original extension behavior:
 restoreAllFunctions()
 ```
 
+For details on restoration, see [Restoration Functions](docs/modules/11-restoration-functions.md).
+
 ---
 
 ## 🧪 Testing Guide
+
+> **📚 For comprehensive testing procedures, see the [Testing Guide](docs/guides/testing-guide.md)**
 
 ### Automated Testing
 
@@ -224,19 +250,28 @@ verifyAllBypassesActive()
 console.log(bypassStats)
 ```
 
+For detailed information on testing functions, see [Testing Functions](docs/modules/10-testing-functions.md).
+
 ### Manual Testing
 
 1. **Multi-Screen Test**: Connect multiple displays and verify no expulsion occurs
+   - See [Display API Overrides](docs/modules/02-display-api-overrides.md) for details
 2. **Keyboard Shortcuts**: Test Ctrl+C, Ctrl+V, Ctrl+A, etc.
+   - See [Keyboard Shortcut Unlocker](docs/modules/09-keyboard-shortcut-unlocker.md) for details
 3. **Fullscreen Test**: Try to exit fullscreen mode
+   - See [Window API Overrides](docs/modules/03-window-api-overrides.md) for details
 4. **Tab Management**: Try to open new tabs or close tabs
+   - See [Tab API Overrides](docs/modules/04-tab-api-overrides.md) for details
 5. **Network Test**: Check DevTools Network tab for blocked requests
+   - See [Network Blocking](docs/modules/06-network-blocking.md) for details
 
 For detailed testing procedures, see the [Testing Guide](docs/guides/testing-guide.md).
 
 ---
 
 ## 🏗️ Architecture
+
+> **📚 For comprehensive architecture documentation, see the [Architecture Overview](docs/architecture-overview.md)**
 
 ### Bypass Architecture Flow
 
@@ -271,11 +306,30 @@ For detailed testing procedures, see the [Testing Guide](docs/guides/testing-gui
 └───────────┘   └───────────┘   └───────────┘
 ```
 
+### Module Documentation
+
+Each module in the architecture is fully documented:
+
+- **[Configuration & Storage](docs/modules/01-configuration-storage.md)** - Function preservation and statistics tracking
+- **[Display API Overrides](docs/modules/02-display-api-overrides.md)** - Multi-screen detection bypass
+- **[Window API Overrides](docs/modules/03-window-api-overrides.md)** - Fullscreen enforcement bypass
+- **[Tab API Overrides](docs/modules/04-tab-api-overrides.md)** - Tab management bypass
+- **[Message Interception](docs/modules/05-message-interception.md)** - Runtime message filtering
+- **[Network Blocking](docs/modules/06-network-blocking.md)** - Fetch/XHR interception
+- **[Storage Manipulation](docs/modules/07-storage-manipulation.md)** - Chrome storage API interception
+- **[Screen Capture Overrides](docs/modules/08-screen-capture-overrides.md)** - Media API manipulation
+- **[Keyboard Shortcut Unlocker](docs/modules/09-keyboard-shortcut-unlocker.md)** - Content script injection
+- **[Testing Functions](docs/modules/10-testing-functions.md)** - Comprehensive testing suite
+- **[Restoration Functions](docs/modules/11-restoration-functions.md)** - Function restoration
+- **[Execution & Verification](docs/modules/12-execution-verification.md)** - Main orchestration and persistence
+
 For detailed architecture documentation, see [Architecture Overview](docs/architecture-overview.md).
 
 ---
 
 ## 🤝 Contributing
+
+> **📚 For detailed contribution guidelines, see [CONTRIBUTING.md](CONTRIBUTING.md)**
 
 Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
@@ -287,9 +341,13 @@ Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for gu
 - Security analysis
 - Countermeasure research
 
+For complete contribution guidelines, see [CONTRIBUTING.md](CONTRIBUTING.md).
+
 ---
 
 ## 📄 License
+
+> **📄 For full license details, see the [LICENSE](LICENSE) file**
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
@@ -312,6 +370,8 @@ If you discover additional vulnerabilities or have questions about this research
 2. Contact the researcher directly via email
 3. Provide detailed information about the issue
 4. Allow reasonable time for response
+
+For contribution-related questions, see [Contributing](#-contributing) and [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ---
 
